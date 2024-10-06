@@ -3,7 +3,7 @@ import os
 import google.generativeai as genai
 import json
 # Assign an envoriemant API key
-os.environ['GOOGLE_API_KEY'] = 'AIzaSyC4iaf23A4TE1QDusMADUzG3GgC72u4eco'
+os.environ['GOOGLE_API_KEY'] = 'YOUR API KEY'
 # Hizmeti yapılandırın
 
 class Planet:
