@@ -7,16 +7,16 @@ os.environ['GOOGLE_API_KEY'] = 'AIzaSyC4iaf23A4TE1QDusMADUzG3GgC72u4eco'
 # Hizmeti yapılandırın
 
 class Planet:
-    def __init__(self, pl_name, distance,pl_mass,pl_dens,rowupdate):
+    def __init__(self, pl_name, distance,pl_mass,rowupdate):
         self.pl_name = pl_name
         self.distance = distance
         self.pl_mass = pl_mass
-        self.pl_dens = pl_dens
+
         self.rowupdate = rowupdate
         
 
     def __str__(self) -> str:
-        return f"Planet name {self.pl_name},Planet Distance from earth [pc]:{self.distance},Planet massive{self.distance}*Earth Massive,Planet density {self.pl_dens}; Planet Row Update {self.rowupdate}"
+        return f"Planet name {self.pl_name},Planet Distance from earth [pc]:{self.distance},Planet massive{self.distance}*Earth Massive; Planet Row Update {self.rowupdate}"
 
 class PlanetsDatabase:
     def __init__(self, db_uri, db_adi):
@@ -34,10 +34,10 @@ class PlanetsDatabase:
                 
         for document in self.collection.find():
             try:
-                planet = Planet(document['pl_name'], document['sy_dist'],document['pl_bmasse'],document['pl_dens'],document['rowupdate'])  # Dökümandan Planet objesi oluştur
+                planet = Planet(document['pl_name'], document['sy_dist'],document['pl_bmasse'],document['rowupdate'])  # Dökümandan Planet objesi oluştur
 
             except:
-                print(planet)
+                
                 break
             
             
