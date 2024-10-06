@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uzay Keşfi</title>
-    <link rel="icon" href="C:/Users/lol-f/Desktop/MasaÜstü/Kodlama/HTML/images/nasa-logo.svg" type="image/svg">
+    <title>Explore the space</title>
+    <link rel="icon" href="./nasa-logo.svg" type="image/svg+xml"> <!-- Updated MIME type -->
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background-image: url('C:/Users/lol-f/Desktop/MasaÜstü/Kodlama/HTML/images/185082-874643396_small.gif');
+            background-image: url('./185082-874643396_small.gif');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -21,22 +21,21 @@
             align-items: center;
             flex-direction: column;
             height: 100vh;
+            transition: background-image 0.5s ease-in-out; /* Arka plan geçiş efekti */
         }
 
         ul {
             list-style-type: none;
-            margin: 0;
             padding: 0;
-            overflow: hidden;
             background-color: transparent;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-        }
-
-        li {
-            float: left;
+            display: flex; /* Flexbox to align items */
+            justify-content: center; /* Center items horizontally */
+            align-items: center; /* Center items vertically */
+            margin: 0;
         }
 
         li a {
@@ -50,12 +49,13 @@
         li a:hover {
             background-color: rgba(17, 17, 17, 0.6);
             border-radius: 10px;
-            border: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
         }
 
         li img {
+            align-items: center;
             height: 75px;
-            cursor: pointer;
+            cursor: pointer;  
         }
 
         .popup {
@@ -99,6 +99,7 @@
 
         .content {
             text-align: center;
+            margin-bottom: 100px;
         }
 
         #button-container {
@@ -111,19 +112,38 @@
         .button {
             padding: 15px 30px;
             font-size: 1.5em;
-            background-color: rgba(0, 0, 0, 0.382);
+            background-color: rgba(20, 20, 20, 0.705);
             border: none;
+            position: relative;
             border-radius: 5px;
             color: white;
             cursor: pointer;
+            transition: transform 0.5s ease-in-out, background-color 0.5s ease-in-out, color 0.5s ease-in-out;
         }
 
         .button:hover {
-            background-color: rgba(0, 0, 0, 0.745);
+            background-color: #ffffff;
+            color: rgb(17, 17, 17);
+            transform: translateY(-15px);
+        }
+
+        .glow-text {
+            font-size: 100px;
+            color: rgb(255, 255, 255);
+            font-family: 'Montserrat', 'Product_sans';
+            position: relative;
+            transition: text-shadow 0.3s ease-in-out, font-size 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+
+        .glow-text:hover {
+            color: #ffffff;
+            text-shadow: 0 0 2px #fff, 0 0 10px #fff, 0 0 20px;
+            font-size: 135px;
+            transform: translateY(-50px);
         }
 
         #result {
-            margin-top: 20px;
+            margin-top: 10px;
             font-size: 1.5em;
             text-align: center;
             padding: 20px;
@@ -135,44 +155,46 @@
 
         footer {
             background-color: rgba(26, 26, 26, 0.4);
-            text-align: right;
-            padding: 10px 0;
+            text-align: center;
+            padding: 5;
             position: absolute;
             bottom: 0;
             width: 100%;
         }
+        
     </style>
 </head>
 <body>
 
     <ul>
-        <li><a href="https://www.nasa.gov/" target="Nasa">
-            <img src="C:\Users\lol-f\Desktop\MasaÜstü\Kodlama\HTML\images\nasa-logo.svg" alt="Logo">
-        </a></li>
-        <li><a href="C:\Users\lol-f\Desktop\MasaÜstü\Kodlama\HTML\main.html">Home</a></li>
+        <li><a href="./main.html">Home</a></li>
         <li><a href="https://www.nasa.gov/news/all-news/">News</a></li>
+        <li><a href="https://www.nasa.gov/" target="Nasa">
+            <img src="./nasa-logo.svg" alt="Logo">
+        </a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="#about">About</a></li>
     </ul>
 
     <div class="content">
-        <h2>Welcome</h2>
-        <p>This site offers a glimpse into the fascinating atmosphere of space. The Solar System, stars, galaxies and more!</p>
+        <h2 class="glow-text">
+            WELCOME!
+        </h2>
 
         <div id="button-container">
             <button id="random-button" class="button">Explore a Planet</button>
         </div>
-        
-        <div id="result"></div> <!-- Rastgele sayı veya mesaj burada gösterilecek -->
+
+        <div id="result" ></div> 
     </div>
 
     <footer>
-        <p>ahmetf.tekin@gmail.com & esrefdesign@gmail.com</p>
+        <li><a href="https://exoplanetarchive.ipac.caltech.edu/">Powered by NASA exoplanet archive</a></li>
     </footer>
 
     <div class="popup" id="popup">
         <div class="popup-content">
-            <h2>Are you ready</h2>
+            <h2>Are you ready?</h2>
             <button onclick="closePopup()">Yes, I am!</button>
         </div>
     </div>
@@ -191,8 +213,18 @@
             if (data && data.planets && data.planets.length > 0) {
                 const randomIndex = Math.floor(Math.random() * data.planets.length);
                 const selectedPlanet = data.planets[randomIndex];
-                const planetInfo = selectedPlanet.name || JSON.stringify(selectedPlanet);
+                const planetInfo = selectedPlanet.name || JSON.stringify(selectedPlanet); // Get planet info
+                const planetName = selectedPlanet.name; // Access the planet name directly
+                
                 document.getElementById('result').innerText = planetInfo;
+
+                // Change background image
+                if (planetName) {
+                    document.body.style.backgroundImage = `url('./images/${planetName}.jpg')`;  // Ensure this path is correct
+                    document.body.style.transition = "background-image 0.5s ease-in-out"; // Add transition effect
+                } else {
+                    console.error('Planet name is undefined');
+                }
             } else {
                 document.getElementById('result').innerText = 'Veri henüz yüklenmedi veya gezegen bulunamadı.';
             }
